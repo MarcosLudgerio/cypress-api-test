@@ -1,0 +1,22 @@
+{
+  "name": "cypress-api-test",
+  "version": "1.0.0",
+  "description": "Study API testing strategies with cypress",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarcosLudgerio/cypress-api-test.git"
+  },
+  "author": "Marcos Ludgério",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarcosLudgerio/cypress-api-test/issues"
+  },
+  "homepage": "https://github.com/MarcosLudgerio/cypress-api-test#readme",
+  "dependencies": {
+    "cypress": "^9.5.4"
+  }
+}
