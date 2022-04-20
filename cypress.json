@@ -1,1 +1,4 @@
-{}
+{
+    "baseUrl": "http://localhost:8080/api/",
+    "integrationFolder": "cypress/integration/api-tests"
+}
