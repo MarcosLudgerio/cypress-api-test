@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/MarcosLudgerio/cypress-api-test#readme",
   "dependencies": {
+    "@faker-js/faker": "^6.1.2",
     "cypress": "^9.5.4"
-  }
+  },
+  "devDependencies": {}
 }
