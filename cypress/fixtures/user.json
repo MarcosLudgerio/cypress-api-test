@@ -1,7 +1,8 @@
 {
     "userLogin": {
-        "email": "marcos@dcx.ufpb.br",
-        "password": "teste@1234"
+        "name": "Raimundo Ludgério",
+        "email": "raimundo@virtus.com",
+        "password": "teste123"
     },
     "userValid": {
         "name": "Marcos 123456",

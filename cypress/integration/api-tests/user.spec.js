@@ -1,5 +1,5 @@
 import faker from '@faker-js/faker';
-import { userValid, userBlank, userInvalidEmail, userPasswordLassThenAllowed, userPasswordMostThenAllowed, userDuplicatedEmail } from '../../fixtures/user.json';
+import { userValid, userLogin, userBlank, userInvalidEmail, userPasswordLassThenAllowed, userPasswordMostThenAllowed, userDuplicatedEmail } from '../../fixtures/user.json';
 
 describe('CTAA api testing', () => {
     context("Creating users", () => {
@@ -80,6 +80,30 @@ describe('CTAA api testing', () => {
                 expect(res).to.have.property('status', 409);
                 expect(res.body).to.contains.property('erros');
                 expect(res.body.erros).to.contains('Usuário com este email ja foi cadastrado');
+            });
+        });
+    });
+
+    context("Updating users", () => {
+        let token = "";
+        beforeEach(() => {
+            cy.request('POST', '/auth/login', userLogin).then(response => {
+                expect(response.status).to.eq(200);
+                token = response.body;
+            });
+        });
+
+        it.only("PUT /users - updating user sucessful", () => {
+            userLogin.name = faker.fake.name;
+            cy.request({
+                method: 'PUT',
+                url: '/users',
+                failOnStatusCode: false,
+                headers: { "Authorization": token },
+                body: userLogin
+            }).then(res => {
+                expect(res).to.have.property('status', 200);
+                expect(res.body).to.have.property('name', userLogin.name);
             });
         });
     });
