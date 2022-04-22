@@ -93,7 +93,7 @@ describe('CTAA api testing', () => {
             });
         });
 
-        it.only("PUT /users - updating user sucessful", () => {
+        it("PUT /users - updating user sucessful", () => {
             userLogin.name = faker.fake.name;
             cy.request({
                 method: 'PUT',
@@ -104,6 +104,41 @@ describe('CTAA api testing', () => {
             }).then(res => {
                 expect(res).to.have.property('status', 200);
                 expect(res.body).to.have.property('name', userLogin.name);
+            });
+        });
+    });
+
+    context("Recorvery users", () => {
+        let token = "";
+        beforeEach(() => {
+            cy.request('POST', '/auth/login', userLogin).then(response => {
+                expect(response.status).to.eq(200);
+                token = response.body;
+            });
+        });
+
+        it("GET /users - get all users sucessful", () => {
+            cy.request({
+                method: 'GET',
+                url: '/users',
+                failOnStatusCode: false,
+            }).then(res => {
+                expect(res).to.have.property('status', 200);
+
+            });
+        });
+
+        it.only("GET /users/details - get one user", () => {
+            cy.request({
+                method: 'GET',
+                url: '/users/details',
+                headers: { "Authorization": token },
+                failOnStatusCode: false,
+            }).then(res => {
+                console.log(res.body);
+                expect(res).to.have.property('status', 200);
+                expect(res.body.name).to.equal(userLogin.name);
+                expect(res.body.email).to.equal(userLogin.email);
             });
         });
     });
