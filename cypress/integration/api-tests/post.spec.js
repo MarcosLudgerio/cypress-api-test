@@ -52,7 +52,7 @@ describe('CTAA Posts Module', () => {
             });
         });
 
-        it("PUT /users - updating user sucessful", () => {
+        it("PUT /users - updating poster sucessful", () => {
             userLogin.name = faker.fake.name;
             cy.request({
                 method: 'PUT',
