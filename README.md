@@ -1,7 +1,3 @@
-# cypress-api-test
-Study API testing strategies with cypress
-
-
 <div align="center" display="flex" style="justify-content:flex-start;">
 <h1>  Automatized Tests </h1>
 </div>
@@ -19,7 +15,7 @@ Study API testing strategies with cypress
 
 ## 📝 Desciption
 This application is a test suite to carry out tests in an API that consists of a CRUD of users and users can register publications <br>
-<p>It was developed using [cypress](https://www.cypress.io/) in version 9.5.4</p>
+It was developed using [cypress](https://www.cypress.io/) in version 9.5.4
 
 
 <div id="executando" />
@@ -36,7 +32,7 @@ Then install all dependencies
 $ npm install
 ```
 
-Next, run this for run tests
+Finally, run cypress
 ```javascript
 $ npm run cypress
 ```
