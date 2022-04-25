@@ -1,17 +1,19 @@
 import faker from '@faker-js/faker';
-import { userValid, userLogin, userBlank, userInvalidEmail, userPasswordLassThenAllowed, userPasswordMostThenAllowed, userDuplicatedEmail } from '../../fixtures/user.json';
+import { userValid, userLogin, userBlank, userInvalidEmailAndInvalidSite, userPasswordLassThenAllowed, userPasswordMostThenAllowed, userDuplicatedEmail } from '../../fixtures/user.json';
 
 describe('CTAA api testing', () => {
     context("Creating users", () => {
         it('POST /users - Creating user sucess', () => {
 
-            userValid.name = faker.fake.name;
+            userValid.name = faker.name.firstName();
+            userValid.lastname = faker.name.lastName();
             userValid.email = faker.internet.email();
             userValid.password = faker.internet.password();
 
             cy.request('POST', '/users', userValid).then(response => {
                 expect(response.status).to.eq(201);
                 expect(response.body).to.have.property('name', userValid.name);
+                expect(response.body).to.have.property('lastname', userValid.lastname);
                 expect(response.body).to.have.property('email', userValid.email);
             });
         });
@@ -24,23 +26,26 @@ describe('CTAA api testing', () => {
                 body: userBlank
             }).then(res => {
                 expect(res).to.have.property('status', 400);
+                console.log(res.body.erros)
                 expect(res.body).to.contains.property('erros');
                 expect(res.body.erros).to.contains('Campo nome é obrigatório');
+                expect(res.body.erros).to.contains('Campo sobrenome é obrigatório');
                 expect(res.body.erros).to.contains('Campo senha é obrigatório');
                 expect(res.body.erros).to.contains('Campo email é obrigatório');
             });
         });
 
-        it('POST /users - Creating user with invalid email address', () => {
+        it('POST /users - Creating user with invalid email address and site', () => {
             cy.request({
                 method: 'POST',
                 url: '/users',
                 failOnStatusCode: false,
-                body: userInvalidEmail
+                body: userInvalidEmailAndInvalidSite
             }).then(res => {
                 expect(res).to.have.property('status', 400);
                 expect(res.body).to.contains.property('erros');
-                expect(res.body.erros).to.contains('Email inválido');
+                expect(res.body.erros).to.contains('O E-mail precisa ser válido');
+                expect(res.body.erros).to.contains('O site precisa ser válido');
             });
         });
 
@@ -135,10 +140,11 @@ describe('CTAA api testing', () => {
                 headers: { "Authorization": token },
                 failOnStatusCode: false,
             }).then(res => {
-                console.log(res.body);
                 expect(res).to.have.property('status', 200);
-                expect(res.body.name).to.equal(userLogin.name);
-                expect(res.body.email).to.equal(userLogin.email);
+                expect(res.body.name).to.equal(userValid.name);
+                expect(res.body.lastname).to.equal(userValid.lastname);
+                expect(res.body.email).to.equal(userValid.email);
+                expect(res.body.site).to.equal(userValid.site);
             });
         });
     });

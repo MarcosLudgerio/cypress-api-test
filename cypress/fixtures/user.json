@@ -1,37 +1,61 @@
 {
     "userLogin": {
-        "name": "Raimundo Ludgério",
+        "name": "Raimundo",
         "email": "raimundo@dcx.ufpb.br",
         "password": "teste@1234"
     },
     "userValid": {
-        "name": "Marcos 123456",
-        "email": "marcos@dcx.ufpb.br",
-        "password": "teste@1234"
+        "name": "Raimundo",
+        "lastname": "Lugério",
+        "email": "raimundo@dcx.ufpb.br",
+        "password": "Test@1234",
+        "bio": "A nice guy",
+        "site": "http://github.com/MarosLudgerio",
+        "urlImage": "http://github.com/MarosLudgerio.png"
     },
     "userBlank": {
         "name": "",
+        "lastname": "",
         "email": "",
-        "password": ""
+        "password": "",
+        "bio": "",
+        "site": "",
+        "urlImage": ""
     },
     "userDuplicatedEmail": {
-        "name": "Marcos Ludgério",
+        "name": "Raimundo",
+        "lastname": "Lugério",
         "email": "raimundo@dcx.ufpb.br",
-        "password": "teste@1234"
+        "password": "Test@1234",
+        "bio": "A nice guy",
+        "site": "http://github.com/MarosLudgerio",
+        "urlImage": "http://github.com/MarosLudgerio.png"
     },
-    "userInvalidEmail": {
-        "name": "Marcos Ludgério",
-        "email": "raimundodcx.ufpb.br",
-        "password": "12334578"
+    "userInvalidEmailAndInvalidSite": {
+        "name": "Raimundo",
+        "lastname": "Lugério",
+        "email": "raimundodcx.",
+        "password": "Test@1234",
+        "bio": "A nice guy",
+        "site": "site",
+        "urlImage": "http://github.com/MarosLudgerio.png"
     },
     "userPasswordLassThenAllowed": {
-        "name": "Marcos Ludgério",
+        "name": "Raimundo",
+        "lastname": "Lugério",
         "email": "raimundo@dcx.ufpb.br",
-        "password": "12334"
+        "password": "1234",
+        "bio": "A nice guy",
+        "site": "http://github.com/MarosLudgerio",
+        "urlImage": "http://github.com/MarosLudgerio.png"
     },
     "userPasswordMostThenAllowed": {
-        "name": "Marcos Ludgério",
+        "name": "Raimundo",
+        "lastname": "Lugério",
         "email": "raimundo@dcx.ufpb.br",
-        "password": "SenhaTest123SenhaTest123SenhaTest123SenhaTest123Senhaasdadasdasdqqwe"
+        "password": "SenhaTest123SenhaTest123SenhaTest123SenhaTest123Senhaasdadasdasdqqwe",
+        "bio": "A nice guy",
+        "site": "http://github.com/MarosLudgerio",
+        "urlImage": "http://github.com/MarosLudgerio.png"
     }
 }
