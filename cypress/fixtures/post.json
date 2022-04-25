@@ -1,0 +1,10 @@
+{
+    "postValid": {
+        "titulo": "O que é API?",
+        "texto": "Um conjunto de rotinas e padrões de programação para acesso a um aplicativo de software ou plataforma baseado na Web. Asigla API refere-se ao termo em inglês 'Application Programming Interface' que significa em tradução para o português 'Interface de Programação de Aplicativos'. Uma API é criadaquando uma empresa de software tem a intenção de que outros criadores de software desenvolvam produtos associados ao seu serviço. Existem vários deles que disponibilizam seus códigos e instruções para serem usados em outros sites da maneira mais conveniente para seus usuários. O Google Maps é um dos grandes exemplos na área de APIs. Por meio de seu código original, muitos outros sites e aplicações utilizam os dados do Google Maps adaptando-o da melhor formaa fim de utilizar esse serviço."
+    },
+    "postBlank": {
+        "titulo": "",
+        "texto": ""
+    }
+}

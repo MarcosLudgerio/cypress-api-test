@@ -1,7 +1,7 @@
 import faker from '@faker-js/faker';
 import { userValid, userLogin, userBlank, userInvalidEmailAndInvalidSite, userPasswordLassThenAllowed, userPasswordMostThenAllowed, userDuplicatedEmail } from '../../fixtures/user.json';
 
-describe('CTAA api testing', () => {
+describe('CTAA Users Module', () => {
     context("Creating users", () => {
         it('POST /users - Creating user sucess', () => {
 
