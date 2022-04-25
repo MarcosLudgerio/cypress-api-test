@@ -133,7 +133,7 @@ describe('CTAA api testing', () => {
             });
         });
 
-        it.only("GET /users/details - get one user", () => {
+        it("GET /users/details - get one user", () => {
             cy.request({
                 method: 'GET',
                 url: '/users/details',
