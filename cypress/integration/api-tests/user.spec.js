@@ -1,5 +1,5 @@
 import faker from '@faker-js/faker';
-import { userValid, userLogin, userBlank, userInvalidEmailAndInvalidSite, userPasswordLassThenAllowed, userPasswordMostThenAllowed, userDuplicatedEmail } from '../../fixtures/user.json';
+import { userValid, userValid2, userLogin, userBlank, userInvalidEmailAndInvalidSite, userPasswordLassThenAllowed, userPasswordMostThenAllowed, userDuplicatedEmail } from '../../fixtures/user.json';
 
 describe('CTAA Users Module', () => {
     context("Creating users", () => {
@@ -10,7 +10,8 @@ describe('CTAA Users Module', () => {
             userValid.email = faker.internet.email();
             userValid.password = faker.internet.password();
 
-            cy.request('POST', '/users', userValid).then(response => {
+            cy.createUser(userValid).then(response => {
+
                 expect(response.status).to.eq(201);
                 expect(response.body).to.have.property('name', userValid.name);
                 expect(response.body).to.have.property('lastname', userValid.lastname);
@@ -19,14 +20,8 @@ describe('CTAA Users Module', () => {
         });
 
         it('POST /users - Creating user with blank datas', () => {
-            cy.request({
-                method: 'POST',
-                url: '/users',
-                failOnStatusCode: false,
-                body: userBlank
-            }).then(res => {
+            cy.createUser(userBlank).then(res => {
                 expect(res).to.have.property('status', 400);
-                console.log(res.body.erros)
                 expect(res.body).to.contains.property('erros');
                 expect(res.body.erros).to.contains('Campo nome é obrigatório');
                 expect(res.body.erros).to.contains('Campo sobrenome é obrigatório');
@@ -36,12 +31,7 @@ describe('CTAA Users Module', () => {
         });
 
         it('POST /users - Creating user with invalid email address and site', () => {
-            cy.request({
-                method: 'POST',
-                url: '/users',
-                failOnStatusCode: false,
-                body: userInvalidEmailAndInvalidSite
-            }).then(res => {
+            cy.createUser(userInvalidEmailAndInvalidSite).then(res => {
                 expect(res).to.have.property('status', 400);
                 expect(res.body).to.contains.property('erros');
                 expect(res.body.erros).to.contains('O E-mail precisa ser válido');
@@ -50,12 +40,7 @@ describe('CTAA Users Module', () => {
         });
 
         it('POST /users - Creating user with password less ', () => {
-            cy.request({
-                method: 'POST',
-                url: '/users',
-                failOnStatusCode: false,
-                body: userPasswordLassThenAllowed
-            }).then(res => {
+            cy.createUser(userPasswordLassThenAllowed).then(res => {
                 expect(res).to.have.property('status', 400);
                 expect(res.body).to.contains.property('erros');
                 expect(res.body.erros).to.contains('A senha deve ter entre 8 e 64 caracteres');
@@ -63,12 +48,7 @@ describe('CTAA Users Module', () => {
         });
 
         it('POST /users - Creating user with password more', () => {
-            cy.request({
-                method: 'POST',
-                url: '/users',
-                failOnStatusCode: false,
-                body: userPasswordMostThenAllowed
-            }).then(res => {
+            cy.createUser(userPasswordMostThenAllowed).then(res => {
                 expect(res).to.have.property('status', 400);
                 expect(res.body).to.contains.property('erros');
                 expect(res.body.erros).to.contains('A senha deve ter entre 8 e 64 caracteres');
@@ -76,12 +56,7 @@ describe('CTAA Users Module', () => {
         });
 
         it('POST /users - Creating user with duplicated email address', () => {
-            cy.request({
-                method: 'POST',
-                url: '/users',
-                failOnStatusCode: false,
-                body: userDuplicatedEmail
-            }).then(res => {
+            cy.createUser(userDuplicatedEmail).then(res => {
                 expect(res).to.have.property('status', 409);
                 expect(res.body).to.contains.property('erros');
                 expect(res.body.erros).to.contains('Usuário com este email ja foi cadastrado');
@@ -92,21 +67,14 @@ describe('CTAA Users Module', () => {
     context("Updating users", () => {
         let token = "";
         beforeEach(() => {
-            cy.request('POST', '/auth/login', userLogin).then(response => {
-                expect(response.status).to.eq(200);
-                token = response.body;
+            cy.loginUser(userLogin).then(res => {
+                token = res.body;
             });
         });
 
         it("PUT /users - updating user successful", () => {
-            userLogin.name = faker.fake.name;
-            cy.request({
-                method: 'PUT',
-                url: '/users',
-                failOnStatusCode: false,
-                headers: { "Authorization": token },
-                body: userLogin
-            }).then(res => {
+            userLogin.name = faker.name.firstName();
+            cy.updateUser(token, userLogin).then(res => {
                 expect(res).to.have.property('status', 200);
                 expect(res.body).to.have.property('name', userLogin.name);
             });
@@ -116,35 +84,25 @@ describe('CTAA Users Module', () => {
     context("Recorvery users", () => {
         let token = "";
         beforeEach(() => {
-            cy.request('POST', '/auth/login', userLogin).then(response => {
-                expect(response.status).to.eq(200);
-                token = response.body;
+            cy.createUser(userValid2);
+            cy.loginUser(userValid2).then(res => {
+                token = res.body;
             });
         });
 
         it("GET /users - get all users successful", () => {
-            cy.request({
-                method: 'GET',
-                url: '/users',
-                failOnStatusCode: false,
-            }).then(res => {
+            cy.getUsers().then(res => {
                 expect(res).to.have.property('status', 200);
-
             });
         });
 
-        it("GET /users/details - get one user", () => {
-            cy.request({
-                method: 'GET',
-                url: '/users/details',
-                headers: { "Authorization": token },
-                failOnStatusCode: false,
-            }).then(res => {
+        it.only("GET /users/details - get one user", () => {
+            cy.getUserDetails(token).then(res => {
                 expect(res).to.have.property('status', 200);
-                expect(res.body.name).to.equal(userValid.name);
-                expect(res.body.lastname).to.equal(userValid.lastname);
-                expect(res.body.email).to.equal(userValid.email);
-                expect(res.body.site).to.equal(userValid.site);
+                expect(res.body.name).to.equal(userValid2.name);
+                expect(res.body.lastname).to.equal(userValid2.lastname);
+                expect(res.body.email).to.equal(userValid2.email);
+                expect(res.body.site).to.equal(userValid2.site);
             });
         });
     });

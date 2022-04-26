@@ -13,6 +13,15 @@
         "site": "http://github.com/MarosLudgerio",
         "urlImage": "http://github.com/MarosLudgerio.png"
     },
+    "userValid2": {
+        "name": "Raimundo",
+        "lastname": "Lugério",
+        "email": "marcos@dcx.ufpb.br",
+        "password": "Test@1234",
+        "bio": "A nice guy",
+        "site": "http://github.com/MarosLudgerio",
+        "urlImage": "http://github.com/MarosLudgerio.png"
+    },
     "userBlank": {
         "name": "",
         "lastname": "",
