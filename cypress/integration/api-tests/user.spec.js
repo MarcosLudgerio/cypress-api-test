@@ -3,7 +3,7 @@ import { userValid, userLogin, userBlank, userInvalidEmailAndInvalidSite, userPa
 
 describe('CTAA Users Module', () => {
     context("Creating users", () => {
-        it('POST /users - Creating user sucess', () => {
+        it('POST /users - Creating user successful', () => {
 
             userValid.name = faker.name.firstName();
             userValid.lastname = faker.name.lastName();
@@ -98,7 +98,7 @@ describe('CTAA Users Module', () => {
             });
         });
 
-        it("PUT /users - updating user sucessful", () => {
+        it("PUT /users - updating user successful", () => {
             userLogin.name = faker.fake.name;
             cy.request({
                 method: 'PUT',
@@ -122,7 +122,7 @@ describe('CTAA Users Module', () => {
             });
         });
 
-        it("GET /users - get all users sucessful", () => {
+        it("GET /users - get all users successful", () => {
             cy.request({
                 method: 'GET',
                 url: '/users',

@@ -6,5 +6,8 @@
     "postBlank": {
         "titulo": "",
         "texto": ""
+    },
+    "postUpdate": {
+        "titulo": "O que é uma API?"
     }
 }
