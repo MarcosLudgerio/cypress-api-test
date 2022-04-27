@@ -1,7 +1,8 @@
-import { userLogin } from '../../fixtures/user.json';
+const { userLogin } = Cypress.env();
 
 describe('CTAA api testing', () => {
-    it('POST /auth/login - Login with sucessfull', () => {
+    it('POST /auth/login - Login sucessfully', () => {
+        console.log(userLogin);
         cy.request('POST', '/auth/login', userLogin).then(response => {
             expect(response.status).to.eq(200);
         });
