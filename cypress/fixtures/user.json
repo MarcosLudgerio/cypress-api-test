@@ -1,4 +1,9 @@
 {
+    "userLogin": {
+        "name": "Raimundo",
+        "email": "raimundo@dcx.ufpb.br",
+        "password": "Test@1234"
+    },
     "userValid": {
         "name": "Raimundo",
         "lastname": "Lugério",
