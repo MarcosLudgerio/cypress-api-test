@@ -1,5 +1,6 @@
 import './api/apiUserCommands';
 import './api/apiPosterCommands';
+import './api/apiAuthenticationCommands';
 
 // ***********************************************
 // This example commands.js shows you how to
