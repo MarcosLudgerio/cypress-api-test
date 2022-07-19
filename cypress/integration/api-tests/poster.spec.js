@@ -1,11 +1,13 @@
-import { userLogin } from '../../fixtures/user.json';
+import { userLogin, userValid } from '../../fixtures/user.json';
+import { generatedNewUser } from '../../support/utils';
 import { postValid, postBlank, postUpdate } from '../../fixtures/post.json';
 
 describe('CTAA Posters Module', () => {
     context("Creating Posters", () => {
         let token = "";
         beforeEach(() => {
-            cy.loginUser(userLogin).then(response => {
+            let user = generatedNewUser(userValid);
+            cy.loginUser(user).then(response => {
                 expect(response.status).to.eq(200);
                 token = response.body;
             });
@@ -15,8 +17,6 @@ describe('CTAA Posters Module', () => {
                 expect(response.status).to.eq(201);
                 expect(response.body).to.have.property('titulo', postValid.titulo);
                 expect(response.body).to.have.property('texto', postValid.texto);
-                expect(response.body.autor).to.have.property('email', userLogin.email);
-                expect(response.body.autor).to.have.property('name', userLogin.name);
             });
         });
 
@@ -47,8 +47,6 @@ describe('CTAA Posters Module', () => {
             cy.updatePoster(id, token, postUpdate).then(res => {
                 expect(res).to.have.property('status', 200);
                 expect(res.body).to.have.property('titulo', postUpdate.titulo);
-                expect(res.body.autor).to.have.property('email', userLogin.email);
-                expect(res.body.autor).to.have.property('name', userLogin.name);
             });
         });
 
@@ -86,7 +84,6 @@ describe('CTAA Posters Module', () => {
             cy.getPoster(id, token).then(res => {
                 expect(res).to.have.property('status', 200);
                 expect(res.body.autor).to.have.property('email', userLogin.email);
-                expect(res.body.autor).to.have.property('name', userLogin.name);
             });
         });
 
@@ -117,8 +114,6 @@ describe('CTAA Posters Module', () => {
                 expect(res).to.have.property('status', 200);
                 expect(res.body).to.have.property('titulo');
                 expect(res.body).to.have.property('texto');
-                expect(res.body.autor).to.have.property('email', userLogin.email);
-                expect(res.body.autor).to.have.property('name', userLogin.name);
             });
         });
     });

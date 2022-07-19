@@ -1,21 +1,19 @@
 import faker from '@faker-js/faker';
+import { generatedNewUser } from '../../support/utils';
 import { userValid, userValid2, userLogin, userBlank, userInvalidEmailAndInvalidSite, userPasswordLassThenAllowed, userPasswordMostThenAllowed, userDuplicatedEmail } from '../../fixtures/user.json';
 
 describe('CTAA Users Module', () => {
     context("Creating users", () => {
         it('POST /users - Creating user successful', () => {
 
-            userValid.name = faker.name.firstName();
-            userValid.lastname = faker.name.lastName();
-            userValid.email = faker.internet.email();
-            userValid.password = faker.internet.password();
+            let user = generatedNewUser(userValid);
 
-            cy.createUser(userValid).then(response => {
+            cy.createUser(user).then(response => {
 
                 expect(response.status).to.eq(201);
-                expect(response.body).to.have.property('name', userValid.name);
-                expect(response.body).to.have.property('lastname', userValid.lastname);
-                expect(response.body).to.have.property('email', userValid.email);
+                expect(response.body).to.have.property('name', user.name);
+                expect(response.body).to.have.property('lastname', user.lastname);
+                expect(response.body).to.have.property('email', user.email);
             });
         });
 
@@ -96,7 +94,7 @@ describe('CTAA Users Module', () => {
             });
         });
 
-        it.only("GET /users/details - get one user", () => {
+        it("GET /users/details - get one user", () => {
             cy.getUserDetails(token).then(res => {
                 expect(res).to.have.property('status', 200);
                 expect(res.body.name).to.equal(userValid2.name);

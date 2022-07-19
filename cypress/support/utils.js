@@ -1,3 +1,13 @@
+import faker from '@faker-js/faker';
+
+export function generatedNewUser(userValid) {
+
+    userValid.name = faker.name.firstName();
+    userValid.lastname = faker.name.lastName();
+    userValid.email = faker.internet.email();
+    userValid.password = faker.internet.password();
+    return userValid;
+}
 export function generatedRandomString(length) {
     let result = '';
     let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz  ';
@@ -8,6 +18,8 @@ export function generatedRandomString(length) {
     }
     return result;
 }
+
+
 
 export function generatedRandomInvalidString(length) {
     let result = '';

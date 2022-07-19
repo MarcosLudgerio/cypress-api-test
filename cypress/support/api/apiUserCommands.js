@@ -1,6 +1,14 @@
 Cypress.Commands.add('loginUser', (user) => {
+    cy.request({
+        method: 'POST',
+        url: '/users',
+        failOnStatusCode: false,
+        body: user
+    })
     return cy.request('POST', '/auth/login', user);
 });
+
+
 
 Cypress.Commands.add('createUser', (user) => {
     return cy.request({
@@ -37,3 +45,4 @@ Cypress.Commands.add('getUserDetails', (token) => {
         failOnStatusCode: false,
     });
 });
+
