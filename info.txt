@@ -1,0 +1,12 @@
+"scripts": {
+sss    "pretest": "if [ -d 'cypress/results' ]; then rm -Rf cypress/results; fi && mkdir cypress/results",
+    "report:merge": "npx mochawesome-merge 'cypress/results/*.json' -o mochawesome.json",
+    "report:gen": "npx marge mochawesome.json -f report -o cypress/reports/mochareports",
+    "test": "npx cypress run --headless --browser chrome",
+    "run-all": "npm-run-all pretest test",
+    "cypress:debug": "DEBUG=cypress:* npx cypress run",
+    "cypress:open": "npx cypress open --browser chrome",
+    "cypress:spec": "npx cypress run --headless --browser chrome --spec",
+    "posttest": "npm run report:merge && npm run report:gen && rm -rf mochawesome.json",
+    "jsdoc": "./node_modules/.bin/jsdoc -d docs cypress/support/api/*.js cypress/support/e2e/*js"
+  },

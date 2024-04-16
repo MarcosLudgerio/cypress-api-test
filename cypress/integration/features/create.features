@@ -1,0 +1,6 @@
+Feature: create user
+
+  Scenario: creating user successfull
+    When I create a new user
+    Then the url should contains /users
+    And the notice should have text Usuário Criado com sucesso
